@@ -5,11 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>تاکسی VIP حسنی | هرات مشهد</title>
   
-  <!-- لود فونت مدرن وزیرمتن -->
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
 
   <style>
-    /* --- استایل‌های مدرن و لوکس --- */
+    /* --- استایل‌های مدرن و سفارشی شده (CSS) --- */
     :root {
       --primary: #ffd700;
       --primary-hover: #ffea79;
@@ -73,6 +72,9 @@
       box-shadow: 0 0 25px rgba(255,215,0,0.35); 
       transition: transform 0.5s ease;
     }  
+    .logo:hover {
+      transform: scale(1.05) rotate(5deg);
+    }
 
     .header h1 { 
       margin: 0; 
@@ -89,7 +91,7 @@
       font-size: 15px; 
     }  
 
-    /* باکس مِتا (ساعت و تاریخ زنده) */
+    /* باکس ساعت و تاریخ شمسی */
     .live-meta-box {
       display: flex;
       flex-direction: column;
@@ -114,6 +116,10 @@
       border: 1px solid rgba(255, 255, 255, 0.15);
       color: var(--text-main);
       font-size: 14px;
+    }
+
+    .clock-icon {
+      font-size: 16px;
     }
 
     #clock { 
@@ -143,6 +149,7 @@
       height: 230px;  
       background: url('Logo.png') center/cover no-repeat; 
       border-radius: 16px;
+      position: relative; 
     }  
 
     .welcome-box {
@@ -174,7 +181,6 @@
       text-align: right;
     }  
 
-    /* استایل دور خط طلایی ظریف و سایه کادرها */
     input, select, textarea { 
       width: 100%; 
       padding: 15px; 
@@ -187,45 +193,44 @@
       border-radius: 16px; 
       border: 1px solid rgba(255, 215, 0, 0.35); 
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45), inset 0 2px 4px rgba(0,0,0,0.2);
-      transition: all .3s ease; 
+      transition: all .3s cubic-bezier(0.16, 1, 0.3, 1); 
     }  
 
     input:focus, select:focus, textarea:focus { 
       outline: none; 
       border: 1px solid #ffffff; 
       background: rgba(0, 0, 0, 0.6);
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.35); 
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.35), inset 0 2px 4px rgba(0,0,0,0.4); 
+      transform: translateY(-2px); 
     }  
 
-    /* بخش ساختار تقویم پاپ‌آپ ۳۰ روزه جدید */
     .date-wrapper {
       position: relative;
       width: 100%;
     }
-
-    .date-wrapper input {
-      cursor: pointer;
-    }
     
+    /* سیستم جدید تقویم جدولی سی روزه */
     .custom-datepicker {
       position: absolute;
-      top: calc(100% - 15px);
+      top: 100%;
       left: 0;
       right: 0;
       background: #1e1e1e;
       border: 1px solid var(--primary);
       border-radius: 16px;
       padding: 15px;
+      margin-top: -15px;
+      margin-bottom: 20px;
       display: none;
-      z-index: 1001;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+      z-index: 1000;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
     }
 
     .datepicker-header {
       text-align: center;
       color: var(--primary);
       font-weight: bold;
-      font-size: 13px;
+      font-size: 14px;
       margin-bottom: 12px;
       border-bottom: 1px solid rgba(255,215,0,0.2);
       padding-bottom: 8px;
@@ -233,39 +238,25 @@
 
     .datepicker-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      max-height: 200px;
-      overflow-y: auto;
-      padding-right: 4px;
-    }
-
-    /* شخصی‌سازی اسکرول‌بار تقویم */
-    .datepicker-grid::-webkit-scrollbar {
-      width: 5px;
-    }
-    .datepicker-grid::-webkit-scrollbar-thumb {
-      background: var(--primary);
-      border-radius: 10px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      text-align: center;
     }
 
     .datepicker-grid span {
-      font-size: 11px;
-      padding: 10px 4px;
+      font-size: 12px;
+      padding: 8px 0;
       cursor: pointer;
       border-radius: 8px;
       color: #fff;
-      text-align: center;
-      background: rgba(255,255,255,0.05);
-      transition: all 0.2s ease;
-      border: 1px solid rgba(255, 215, 0, 0.1);
+      transition: all 0.2s;
+      background: rgba(255,255,255,0.04);
     }
 
     .datepicker-grid span:hover {
       background: var(--primary);
       color: #000;
       font-weight: bold;
-      border-color: var(--primary);
     }
 
     textarea { 
@@ -282,7 +273,7 @@
       font-size: 16px; 
       font-weight: 700; 
       cursor: pointer; 
-      transition: all 0.3s ease; 
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
       box-shadow: 0 10px 25px rgba(255,215,0,0.3); 
       font-family: var(--font-family);
       margin-bottom: 15px;
@@ -391,7 +382,11 @@
       color: white; 
       box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4); 
       z-index: 999; 
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
     }  
+    .whatsapp-float:hover { 
+      transform: scale(1.1) translateY(-5px); 
+    }
   </style>
 </head>
 <body>
@@ -454,12 +449,12 @@
       
       <label> تاریخ حرکت </label>  
       <div class="date-wrapper">
-        <input type="text" id="date-picker-input" placeholder="برای انتخاب روز حرکت کلیک کنید..." readonly>  
+        <input type="text" id="date-picker-input" placeholder="برای انتخاب تاریخ کلیک کنید..." readonly>  
         
-        <!-- جدول انتخاب روز سی روزه کاملاً بومی و استاندارد -->
         <div class="custom-datepicker" id="custom-picker">
-          <div class="datepicker-header">روز حرکت خود را تعیین کنید (۳۰ روز آینده)</div>
-          <div class="datepicker-grid" id="days-container"></div>
+          <div class="datepicker-header">لطفاً روز حرکت خود را انتخاب کنید</div>
+          <div class="datepicker-grid" id="days-container">
+            </div>
         </div>
       </div>
       
@@ -507,34 +502,37 @@
     💬  
   </a>
 
-  <!-- اجرای مستقیم اسکریپت‌ها بدون تداخل و بدون نیاز به هیچ فایل کمکی خارجی -->
   <script>
-    // ۱. اجرای زمان و تاریخ زنده به صورت لوکال و بدون وقفه
+    // المان‌های سراسری تعریف شده خارج از توابع برای جلوگیری از خطا
+    const picker = document.getElementById('custom-picker');
+    const dateInput = document.getElementById('date-picker-input');
+    const daysContainer = document.getElementById('days-container');
+
+    // ۱. سیستم ساعت زنده و تاریخ روز کاملاً مستقل و بدون باگ
     function startClock() {
       const clockEl = document.getElementById("clock");
       const dateEl = document.getElementById("shamsi-date");
 
       function update() {
         const now = new Date();
-        if (clockEl) clockEl.innerText = now.toLocaleTimeString("fa-IR");
+        if (clockEl) {
+          clockEl.innerText = now.toLocaleTimeString("fa-IR");
+        }
+        
+        try {
+          const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+          if (dateEl) {
+            dateEl.innerText = new Intl.DateTimeFormat('fa-IR', options).format(now);
+          }
+        } catch (e) {
+          console.error("خطا در قالب‌بندی تاریخ شمسی", e);
+        }
       }
-
-      try {
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        if (dateEl) dateEl.innerText = new Intl.DateTimeFormat('fa-IR', options).format(new Date());
-      } catch (e) {
-        if (dateEl) dateEl.innerText = "خطا در بارگذاری تاریخ";
-      }
-
       update();
       setInterval(update, 1000);
     }
 
-    // ۲. سیستم پیشرفته ساخت جدول ۳0 روزه بدون تداخل
-    const picker = document.getElementById('custom-picker');
-    const dateInput = document.getElementById('date-picker-input');
-    const daysContainer = document.getElementById('days-container');
-
+    // ۲. ساخت جدول انتخاب تاریخ هوشمند سی روزه بدون تداخل
     if (dateInput) {
       dateInput.addEventListener('click', function(e) {
         e.stopPropagation();
@@ -546,64 +544,81 @@
       if (!daysContainer) return;
       daysContainer.innerHTML = '';
       const now = new Date();
-
+      
       for (let i = 0; i < 30; i++) {
-        const futureDate = new Date(now);
+        const futureDate = new Date();
         futureDate.setDate(now.getDate() + i);
-
-        let dayString = new Intl.DateTimeFormat('fa-IR', { day: 'numeric' }).format(futureDate);
-        let monthString = new Intl.DateTimeFormat('fa-IR', { month: 'short' }).format(futureDate);
-        let fullFormatted = new Intl.DateTimeFormat('fa-IR', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(futureDate);
-
+        
+        const dayString = new Intl.DateTimeFormat('fa-IR', { day: 'numeric' }).format(futureDate);
+        const monthString = new Intl.DateTimeFormat('fa-IR', { month: 'short' }).format(futureDate);
+        const fullFormatted = new Intl.DateTimeFormat('fa-IR', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(futureDate);
+        
         const span = document.createElement('span');
         span.innerText = ${dayString} ${monthString};
+        
         span.addEventListener('click', function(e) {
           e.stopPropagation();
           dateInput.value = fullFormatted;
           picker.style.display = 'none';
         });
+        
         daysContainer.appendChild(span);
       }
     }
 
+    // بستن تقویم در صورت کلیک در جایی خارج از آن
     document.addEventListener('click', function() {
-      if (picker) picker.style.display = 'none';
-    });
-
-    // ۳. مدیریت دکمه ارسال به واتساپ و دکمه اشتراک‌گذاری با رویداد مستقیم (Event Listener)
-    document.getElementById('submit-btn').addEventListener('click', function() {
-      const name = document.getElementById("name").value;  
-      const phone = document.getElementById("phone").value;  
-      const route = document.getElementById("route").value;  
-      const passengers = document.getElementById("passengers").value;  
-      const carType = document.getElementById("carType").value;  
-      const date = dateInput.value;  
-      const address = document.getElementById("address").value;  
-      
-      if (!name.trim() || !phone.trim() || !date.trim()) {  
-        alert("لطفاً فیلدهای ضروری (نام، شماره تماس و تاریخ حرکت) را مشخص فرمایید.");  
-        return;  
-      }  
-      
-      const message = سلام و احترام؛ درخواست رزرو سفر جدید دارم 👇\n\n🚖 نوع خدمات: رزرو تاکسی بین‌المللی VIP\n👤 نام مسافر: ${name}\n📞 شماره تماس: ${phone}\n🛣️ مسیر درخواستی: ${route}\n👥 تعداد مسافران: ${passengers}\n🚘 نوع خودرو موردنظر: ${carType}\n📅 تاریخ حرکت: ${date}\n📍 آدرس دقیق / توضیحات اضافی: ${address ? address : 'ذکر نشده'}\n\n---\nلطفاً فرم رزرو زمان حرکت از مبداء هماهنگی مرا تایید فرمایید.\n🌐 لینک سایت: https://taxi-reservation-herat-mashhad-hassan.netlify.app;  
-      
-      alert("در حال انتقال به واتساپ پشتیبانی...");  
-      window.open("https://wa.me/93780889098?text=" + encodeURIComponent(message), "_blank");  
-    });
-
-    document.getElementById('share-btn').addEventListener('click', function() {
-      const shareText = 🚖 تاکسی بین‌المللی VIP حسنی (هرات ⇄ مشهد)\n\n✨ سفری ایمن، سریع و فوق‌العاده راحت با خودروهای لوکس\n⏰ اعزام سرویس به صورت ۲۴ ساعته\n🇦🇫 تماس افغانستان: 0780889098\n🇮🇷 تماس ایران: 09351023670\n\n👇 جهت رزرو آنلاین روی لینک زیر کلیک کنید:\nhttps://taxi-reservation-herat-mashhad-hassan.netlify.app;
-
-      if (navigator.share) {
-        navigator.share({ title: 'تاکسی VIP حسنی', text: shareText }).catch((err) => console.log(err));
-      } else {
-        navigator.clipboard.writeText(shareText).then(() => {
-          alert("💥 پیام تبلیغاتی همراه با لینک سایت کپی شد!\nاکنون می‌توانید آن را در تلگرام یا واتساپ برای دوستان خود بفرستید (Paste کنید).");
-        }).catch((err) => console.error(err));
+      if (picker) {
+        picker.style.display = 'none';
       }
     });
 
-    // راه‌اندازی توابع بلافاصله پس از لود شدن کامل صفحه
+    // ۳. اتصال رویداد دکمه ثبت رزرو و دکمه اشتراک‌گذاری با رویداد مستقیم
+    const submitBtn = document.getElementById('submit-btn');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', function() {
+        const name = document.getElementById("name").value;  
+        const phone = document.getElementById("phone").value;  
+        const route = document.getElementById("route").value;  
+        const passengers = document.getElementById("passengers").value;  
+        const carType = document.getElementById("carType").value;  
+        const date = dateInput ? dateInput.value : '';  
+        const address = document.getElementById("address").value;  
+        
+        if (!name.trim() || !phone.trim() || !date.trim()) {  
+          alert("لطفاً فیلدهای ضروری (نام، شماره تماس و تاریخ حرکت) را مشخص فرمایید.");  
+          return;  
+        }  
+        
+        const message = سلام و احترام؛ درخواست رزرو سفر جدید دارم 👇\n\n🚖 نوع خدمات: رزرو تاکسی بین‌المللی VIP\n👤 نام مسافر: ${name}\n📞 شماره تماس: ${phone}\n🛣️ مسیر درخواستی: ${route}\n👥 تعداد مسافران: ${passengers}\n🚘 نوع خودرو موردنظر: ${carType}\n📅 تاریخ حرکت: ${date}\n📍 آدرس دقیق / توضیحات اضافی: ${address ? address : 'ذکر نشده'}\n\n---\nلطفاً فرم رزرو زمان حرکت از مبداء هماهنگی مرا تایید فرمایید.\n🌐 لینک سایت: https://taxi-reservation-herat-mashhad-hassan.netlify.app;  
+        
+        alert("در حال انتقال به واتساپ پشتیبانی...");  
+        const whatsappURL = "https://wa.me/93780889098?text=" + encodeURIComponent(message);  
+        window.open(whatsappURL, "_blank");  
+      });
+    }
+
+    const shareBtn = document.getElementById('share-btn');
+    if (shareBtn) {
+      shareBtn.addEventListener('click', function() {
+        const shareTitle = 'تاکسی بین‌المللی VIP حسنی';
+        const shareText = 🚖 تاکسی بین‌المللی VIP حسنی (هرات ⇄ مشهد)\n\n✨ سفری ایمن، سریع و فوق‌العاده راحت با خودروهای لوکس\n⏰ اعزام سرویس به صورت ۲۴ ساعته\n🇦🇫 تماس افغانستان: 0780889098\n🇮🇷 تماس ایران: 09351023670\n\n👇 جهت رزرو آنلاین روی لینک زیر کلیک کنید:;
+        const shareUrl = 'https://taxi-reservation-herat-mashhad-hassan.netlify.app';
+        const fullMessage = ${shareText}\n${shareUrl};
+
+        if (navigator.share) {
+          navigator.share({ title: shareTitle, text: fullMessage }).catch((err) => console.log(err));
+        } else {
+          navigator.clipboard.writeText(fullMessage).then(() => {
+            alert("💥 پیام تبلیغاتی همراه با لینک سایت کپی شد!\nاکنون می‌توانید آن را در تلگرام یا واتساپ برای دوستان خود بفرستید (Paste کنید).");
+          }).catch((err) => {
+            console.error("خطا در کپی: ", err);
+          });
+        }
+      });
+    }
+
+    // توابع بلافاصله پس از لود شدن کامل صفحه اجرا می‌شوند
     window.addEventListener('DOMContentLoaded', function() {
       startClock();
       generateCalendar();
