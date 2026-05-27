@@ -1,0 +1,552 @@
+﻿<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>رزرو آنلاین تاکسی حسنی VIP</title>
+
+<script src="https://cdn.jsdelivr.net/npm/jalaali-js/dist/jalaali.min.js"></script>
+
+<style>
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    padding:0;
+    background:radial-gradient(circle at center,#0d1b2a 0%,#010811 100%);
+    font-family:tahoma,sans-serif;
+    color:#e0e1dd;
+    min-height:100vh;
+}
+
+.container{
+    width:95%;
+    max-width:540px;
+    margin:40px auto;
+    background:rgba(13,27,42,0.85);
+    backdrop-filter:blur(15px);
+    -webkit-backdrop-filter:blur(15px);
+    border-radius:30px;
+    overflow:hidden;
+    border:1px solid rgba(0,242,254,0.25);
+    box-shadow:0 0 35px rgba(0,242,254,0.15),
+               inset 0 0 15px rgba(0,242,254,0.05);
+    animation:show .8s ease;
+}
+
+@keyframes show{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.header{
+    padding:40px 20px;
+    text-align:center;
+    background:linear-gradient(135deg,#00b4db,#0083b0);
+    color:white;
+    border-bottom:3px solid #ffd700;
+    box-shadow:0 4px 20px rgba(0,180,219,0.3);
+}
+
+.logo{
+    width:130px;
+    height:130px;
+    object-fit:cover;
+    border-radius:50%;
+    border:4px solid #ffd700;
+    margin-bottom:20px;
+    box-shadow:0 0 25px rgba(255,215,0,0.4);
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+
+    0%{
+        transform:scale(1);
+        box-shadow:0 0 20px rgba(255,215,0,0.4);
+    }
+
+    50%{
+        transform:scale(1.03);
+        box-shadow:0 0 30px rgba(0,242,254,0.6);
+    }
+
+    100%{
+        transform:scale(1);
+        box-shadow:0 0 20px rgba(255,215,0,0.4);
+    }
+
+}
+
+.header h1{
+    margin:0;
+    color:#ffffff;
+    font-size:34px;
+    font-weight:bold;
+}
+
+.header p{
+    color:#ffffff;
+    margin-top:12px;
+    line-height:1.8;
+    font-size:19px;
+    font-weight:bold;
+}
+
+.date-box{
+    text-align:center;
+    padding:18px 10px;
+    background:linear-gradient(135deg,#09121f,#10243f);
+    border-top:2px solid rgba(0,242,254,0.2);
+    border-bottom:2px solid rgba(0,242,254,0.2);
+    color:#ffd700;
+    line-height:2;
+}
+
+#persianDate{
+    font-size:20px;
+    font-weight:bold;
+    text-shadow:0 0 12px rgba(255,215,0,0.5);
+}
+
+#clock{
+    font-size:24px;
+    color:#00f2fe;
+    font-weight:bold;
+    margin-top:5px;
+}
+
+.car{
+    width:100%;
+    height:280px;
+    background:url('logo.png') center/cover no-repeat;
+    position:relative;
+    box-shadow:inset 0 -50px 50px rgba(1,8,17,0.9),
+               inset 0 50px 50px rgba(1,8,17,0.9);
+    filter:drop-shadow(0px 0px 15px rgba(0,242,254,0.3));
+}
+
+.form-box{
+    padding:30px;
+    background:rgba(15,32,67,0.5);
+    border-top:4px solid #00f2fe;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    color:#00f2fe;
+    font-size:16px;
+    font-weight:bold;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:16px;
+    margin-bottom:22px;
+    border:2px solid #00b4db;
+    border-radius:14px;
+    background-color:#e8f5e9;
+    color:#000;
+    box-sizing:border-box;
+    font-size:17px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    outline:none;
+    border:2px solid #ffd700;
+    background-color:#ffffff;
+    box-shadow:0 0 15px rgba(255,215,0,0.4);
+}
+
+textarea{
+    resize:none;
+}
+
+.btn{
+    width:100%;
+    background:linear-gradient(135deg,#00f2fe,#0072ff);
+    color:white;
+    border:none;
+    padding:18px;
+    border-radius:16px;
+    font-size:20px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 0 20px rgba(0,242,254,0.4);
+}
+
+.btn:hover{
+    background:linear-gradient(135deg,#0072ff,#00f2fe);
+    box-shadow:0 0 30px rgba(0,242,254,0.7);
+}
+
+.info{
+    padding:30px 20px;
+    text-align:center;
+    background:#0b132b;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.number{
+    font-size:24px;
+    color:#ffd700;
+    font-weight:bold;
+    margin-top:6px;
+    margin-bottom:15px;
+}
+
+.social-box{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    margin-top:15px;
+    margin-bottom:15px;
+}
+
+.call-btn,
+.tg-btn{
+    flex:1;
+    padding:14px 20px;
+    text-decoration:none;
+    border-radius:14px;
+    font-size:16px;
+    font-weight:bold;
+    transition:.3s;
+    text-align:center;
+}
+
+.call-btn{
+    background:rgba(0,180,219,0.1);
+    color:#00f2fe;
+    border:1px solid #00b4db;
+}
+
+.call-btn:hover{
+    background:#00b4db;
+    color:white;
+}
+
+.tg-btn{
+    background:rgba(2,136,209,0.1);
+    color:#29b6f6;
+    border:1px solid #0288d1;
+}
+
+.tg-btn:hover{
+    background:#0288d1;
+    color:white;
+}
+
+.site-btn{
+    display:inline-block;
+    width:80%;
+    padding:14px 20px;
+    background:linear-gradient(135deg,#1c2541,#3a506b);
+    color:#ffd700;
+    border:1px solid rgba(255,215,0,0.3);
+    text-decoration:none;
+    border-radius:14px;
+    font-size:17px;
+    font-weight:bold;
+}
+
+.footer{
+    text-align:center;
+    color:#8d99ae;
+    font-size:15px;
+    margin-top:25px;
+    line-height:1.8;
+}
+
+.whatsapp-float{
+    position:fixed;
+    bottom:25px;
+    left:25px;
+    width:65px;
+    height:65px;
+    background:#4caf50;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:32px;
+    text-decoration:none;
+    color:white;
+    box-shadow:0 0 20px rgba(76,175,80,0.5);
+    z-index:999;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<img src="logo.png" class="logo">
+
+<h1>تاکسی VIP حسنی</h1>
+
+<p>
+سفر راحت، سریع و مطمئن
+<br>
+هرات ← مشهد
+</p>
+
+</div>
+
+<div class="date-box">
+
+<div id="persianDate"></div>
+
+<div id="clock"></div>
+
+</div>
+
+<div class="car"></div>
+
+<div class="form-box">
+
+<label>نام و نام خانوادگی</label>
+<input type="text" id="name" placeholder="نام کامل شما">
+
+<label>شماره تماس</label>
+<input type="tel" id="phone" placeholder="0780xxxxxx">
+
+<label>مسیر سفر</label>
+
+<select id="route">
+<option value="هرات-مشهد">هرات ← مشهد</option>
+<option value="مشهد-هرات">مشهد ← هرات</option>
+</select>
+
+<label>تعداد مسافر</label>
+
+<select id="passengers">
+<option value="1">1 نفر</option>
+<option value="2">2 نفر</option>
+<option value="3">3 نفر</option>
+<option value="4">4 نفر</option>
+</select>
+
+<label>نوع خودرو</label>
+
+<select id="carType">
+<option value="معمولی">VIP معمولی</option>
+<option value="لوکس">VIP لوکس</option>
+<option value="ون">ون خانوادگی</option>
+</select>
+
+<label>تاریخ حرکت</label>
+
+<input type="text" id="date" placeholder="مثلاً ۱۴۰۵/۰۳/۰۶">
+
+<label>محل دقیق سوار شدن</label>
+
+<textarea id="address" rows="3"
+placeholder="آدرس دقیق یا لینک نقشه"></textarea>
+
+<button class="btn"
+onclick="sendToWhatsApp()">
+ثبت رزرو در واتساپ
+</button>
+
+</div>
+
+<div class="info">
+
+افغانستان 🇦🇫
+
+<div class="number">
+0780889098
+</div>
+
+ایران 🇮🇷
+
+<div class="number">
+09351023670
+</div>
+
+<div class="social-box">
+
+<a href="tel:+93780889098"
+class="call-btn">
+📞 تماس مستقیم
+</a>
+
+<a href="https://t.me/ALIAKBAR_HASSANI"
+target="_blank"
+class="tg-btn">
+✈️ پیام در تلگرام
+</a>
+
+</div>
+
+<a href="https://sites.google.com/view/taxi-herat-mashhad-hassani"
+target="_blank"
+class="site-btn">
+🌐 ورود به سایت رسمی
+</a>
+
+<div class="footer">
+
+تاکسی بین‌المللی هرات مشهد حسنی
+
+<br>
+
+سفر ایمن، سریع و VIP بین هرات و مشهد
+
+</div>
+
+</div>
+
+</div>
+
+<a href="https://wa.me/message/3YHT6E4WZFNLM1"
+class="whatsapp-float"
+target="_blank">
+💬
+</a>
+
+<script>
+
+function updatePersianDate(){
+
+    const now = new Date();
+
+    const gy = now.getFullYear();
+    const gm = now.getMonth() + 1;
+    const gd = now.getDate();
+
+    const j = jalaali.toJalaali(gy,gm,gd);
+
+    const months = [
+        "فروردین","اردیبهشت","خرداد",
+        "تیر","مرداد","شهریور",
+        "مهر","آبان","آذر",
+        "دی","بهمن","اسفند"
+    ];
+
+    const days = [
+        "یکشنبه",
+        "دوشنبه",
+        "سه‌شنبه",
+        "چهارشنبه",
+        "پنجشنبه",
+        "جمعه",
+        "شنبه"
+    ];
+
+    document.getElementById("persianDate").innerHTML =
+        days[now.getDay()] + " "
+        + j.jd + " "
+        + months[j.jm - 1] + " "
+        + j.jy;
+
+    document.getElementById("clock").innerHTML =
+        now.toLocaleTimeString("fa-IR");
+
+}
+
+setInterval(updatePersianDate,1000);
+
+updatePersianDate();
+
+
+
+function sendToWhatsApp(){
+
+    let name =
+        document.getElementById("name").value
+        || "ثبت نشده";
+
+    let phone =
+        document.getElementById("phone").value
+        || "ثبت نشده";
+
+    let route =
+        document.getElementById("route").value;
+
+    let passengers =
+        document.getElementById("passengers").value;
+
+    let carType =
+        document.getElementById("carType").value;
+
+    let date =
+        document.getElementById("date").value
+        || "ثبت نشده";
+
+    let address =
+        document.getElementById("address").value
+        || "ثبت نشده";
+
+
+
+    let message =
+
+`✨ رزرو جدید تاکسی VIP
+
+👤 نام:
+${name}
+
+📞 شماره تماس:
+${phone}
+
+🗺️ مسیر:
+${route}
+
+👥 تعداد مسافر:
+${passengers} نفر
+
+🚗 نوع خودرو:
+VIP ${carType}
+
+📅 تاریخ حرکت:
+${date}
+
+📍 آدرس:
+${address}
+
+🌐 سایت رسمی:
+https://sites.google.com/view/taxi-herat-mashhad-hassani`;
+
+
+
+    let whatsappUrl =
+https://wa.me/93780889098?text=${encodeURIComponent(message)};
+
+
+
+    window.open(whatsappUrl,"_blank");
+
+}
+
+</script>
+
+</body>
+</html>
