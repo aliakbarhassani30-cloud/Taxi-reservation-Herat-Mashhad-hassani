@@ -5,18 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>تاکسی VIP حسنی | هرات مشهد</title>
   
+  <!-- لود فونت مدرن وزیرمتن و استایل تقویم شمسی کامپوننت -->
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
 
   <style>
-    /* --- استایل‌های مدرن و جوان‌پسند (CSS) --- */
+    /* --- استایل‌های مدرن و سفارشی شده (CSS) --- */
     :root {
       --primary: #ffd700;
       --primary-hover: #ffea79;
-      --bg-dark: #0a0a0a;
-      --card-bg: rgba(30, 30, 30, 0.65);
-      --input-bg: rgba(45, 45, 45, 0.7);
+      --bg-main: #e6f2ff; 
+      --card-bg: rgba(30, 30, 30, 0.85);
+      --input-bg: rgba(0, 0, 0, 0.45); 
       --text-main: #ffffff;
-      --text-muted: #b3b3b3;
+      --text-muted: #dcdcdc;
       --font-family: 'Vazirmatn', sans-serif;
     }
 
@@ -27,7 +29,7 @@
     body { 
       margin: 0; 
       padding: 0; 
-      background: linear-gradient(135deg, #050505 0%, #121212 100%); 
+      background: linear-gradient(135deg, #e6f2ff 0%, #b3d7ff 100%); 
       font-family: var(--font-family); 
       color: var(--text-main); 
       direction: rtl; 
@@ -46,8 +48,8 @@
       -webkit-backdrop-filter: blur(16px);
       border-radius: 30px; 
       overflow: hidden; 
-      border: 1px solid rgba(255, 215, 0, 0.25); 
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.05); 
+      border: 1px solid rgba(255, 215, 0, 0.3); 
+      box-shadow: 0 25px 55px rgba(0, 0, 0, 0.4); 
       animation: fadeIn .8s cubic-bezier(0.16, 1, 0.3, 1); 
     }  
 
@@ -59,7 +61,7 @@
     .header { 
       padding: 40px 25px 25px; 
       text-align: center; 
-      background: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
+      background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
     }  
 
     .logo { 
@@ -81,7 +83,7 @@
       color: var(--primary); 
       font-size: 28px; 
       font-weight: 800;
-      text-shadow: 0 2px 10px rgba(255, 215, 0, 0.2);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }  
 
     .header p { 
@@ -105,16 +107,16 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      background: rgba(255, 215, 0, 0.08);
+      background: rgba(255, 215, 0, 0.15);
       padding: 6px 18px;
       border-radius: 100px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
+      border: 1px solid rgba(255, 215, 0, 0.3);
     }
 
     #date-container {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--text-main);
       font-size: 13px;
     }
 
@@ -134,27 +136,39 @@
       font-weight: 700;
     }  
 
+    /* تفکیک‌کننده باریک طلایی بالای کادر تصویر خودرو */
+    .divider-line {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.4), transparent);
+    }
+
+    /* باکس کادر تصویر خودرو */
+    .car-wrapper {
+      margin: 20px 25px 5px;
+      padding: 4px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 215, 0, 0.35); 
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5); 
+      overflow: hidden;
+    }
+
     .car { 
       width: 100%; 
-      height: 240px;  
+      height: 230px;  
       background: url('Logo.png') center/cover no-repeat; 
+      border-radius: 16px;
       position: relative; 
     }  
 
-    .car::after { 
-      content: ''; 
-      position: absolute; 
-      inset: 0; 
-      background: linear-gradient(to top, rgba(27,27,27,1), transparent); 
-    }  
-
-    /* استایل پیام خوش‌آمدگویی */
+    /* باکس پیام خوش‌آمداگویی */
     .welcome-box {
-      background: rgba(255, 215, 0, 0.05);
-      border: 1px dashed rgba(255, 215, 0, 0.3);
+      background: rgba(255, 215, 0, 0.07);
+      border: 1px dashed rgba(255, 215, 0, 0.4);
       border-radius: 16px;
       padding: 15px;
-      margin: 0 30px;
+      margin: 20px 30px 0;
       text-align: center;
       font-size: 14px;
       line-height: 1.6;
@@ -178,30 +192,86 @@
       text-align: right;
     }  
 
+    /* خط ریز طلایی و سایه نرم پشت کادرهای نوشتاری */
     input, select, textarea { 
       width: 100%; 
       padding: 15px; 
       margin-bottom: 22px; 
-      border: 1px solid rgba(255,255,255,0.05); 
-      border-radius: 16px; 
       background: var(--input-bg); 
       color: var(--text-main); 
       box-sizing: border-box; 
       font-size: 14px; 
-      transition: all .3s ease; 
       font-family: var(--font-family);
+      border-radius: 16px; 
+      border: 1px solid rgba(255, 215, 0, 0.35); 
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45), inset 0 2px 4px rgba(0,0,0,0.2);
+      transition: all .3s cubic-bezier(0.16, 1, 0.3, 1); 
     }  
 
     input:focus, select:focus, textarea:focus { 
       outline: none; 
-      border: 1px solid var(--primary); 
-      background: rgba(45, 45, 45, 0.9);
-      box-shadow: 0 0 15px rgba(255,215,0,0.15); 
+      border: 1px solid #ffffff; 
+      background: rgba(0, 0, 0, 0.6);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.35), inset 0 2px 4px rgba(0,0,0,0.4); 
+      transform: translateY(-2px); 
     }  
+
+    /* باکس سفارشی تاریخ با فلش کشویی */
+    .date-input-wrapper {
+      position: relative;
+      width: 100%;
+    }
+    
+    .date-input-wrapper input {
+      padding-left: 40px; 
+      cursor: pointer;
+    }
+
+    .date-input-wrapper::after {
+      content: '∨'; 
+      position: absolute;
+      left: 18px;
+      top: 15px;
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: bold;
+      pointer-events: none; 
+    }
 
     textarea { 
       resize: none; 
     }  
+
+    /* استایل‌های اختصاصی تقویم پوسته تاریک و طلایی */
+    .pdatepicker {
+      font-family: var(--font-family) !important;
+      background: #1e1e1e !important;
+      border: 1px solid var(--primary) !important;
+      border-radius: 16px !important;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+    }
+    .pdatepicker *, .pdatepicker th, .pdatepicker td {
+      color: #fff !important;
+    }
+    .pdatepicker .pdatepicker-header {
+      background: #252525 !important;
+      border-bottom: 1px solid rgba(255,215,0,0.15) !important;
+    }
+    .pdatepicker .pdatepicker-header .btn-next, 
+    .pdatepicker .pdatepicker-header .btn-prev {
+      background: rgba(255,215,0,0.1) !important;
+      border-radius: 8px !important;
+    }
+    .pdatepicker .pdatepicker-day-picker table td.today span {
+      background: transparent !important;
+      border: 1px solid var(--primary) !important;
+      color: var(--primary) !important;
+    }
+    .pdatepicker .pdatepicker-day-picker table td.selected span {
+      background: var(--primary) !important;
+      color: #000 !important;
+      font-weight: bold !important;
+    }
 
     .btn { 
       width: 100%; 
@@ -224,11 +294,10 @@
       box-shadow: 0 15px 30px rgba(255,215,0,0.45); 
     }  
 
-    /* دکمه جدید اشتراک‌گذاری */
     .share-btn {
       width: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       color: var(--text-main);
       padding: 12px;
       border-radius: 14px;
@@ -243,15 +312,15 @@
       gap: 8px;
     }
     .share-btn:hover {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.15);
       border-color: var(--primary);
     }
 
     .info { 
       padding: 30px 20px; 
-      border-top: 1px solid rgba(255,255,255,0.05); 
+      border-top: 1px solid rgba(255,255,255,0.1); 
       text-align: center; 
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.3);
     }  
 
     .number { 
@@ -263,7 +332,6 @@
       letter-spacing: 1px;
     }  
 
-    /* دکمه‌های ارتباطی انتهای فرم */
     .social-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -288,21 +356,28 @@
     .btn-call { background: var(--primary); color: #000; }
     .btn-call:hover { background: var(--primary-hover); transform: translateY(-2px); }
 
-    .btn-site { background: #ffffff; color: #000; }
-    .btn-site:hover { background: #e6e6e6; transform: translateY(-2px); }
-
+    /* استایل اختصاصی دکمه تلگرام (که به بالای سایت منتقل شده است) */
     .btn-telegram { background: #26a5e4; color: #fff; grid-column: span 2; }
     .btn-telegram:hover { background: #34b3f3; transform: translateY(-2px); }
 
+    /* استایل اختصاصی دکمه سایت اصلی (که به پایین تلگرام منتقل شده است) */
+    .btn-site { 
+      background: #ffffff; 
+      color: #000; 
+      grid-column: span 2; 
+      font-size: 13px;
+      padding: 14px 10px;
+    }
+    .btn-site:hover { background: #e6e6e6; transform: translateY(-2px); }
+
     .footer { 
       text-align: center; 
-      color: rgba(255,255,255,0.4); 
+      color: rgba(255,255,255,0.5); 
       font-size: 12px; 
       margin-top: 25px; 
       line-height: 1.8; 
     }  
 
-    /* دکمه شناور واتساپ */
     .whatsapp-float { 
       position: fixed; 
       bottom: 25px; 
@@ -345,7 +420,11 @@
       </div>
     </div>  
     
-    <div class="car"></div>  
+    <div class="divider-line"></div>
+    
+    <div class="car-wrapper">
+      <div class="car"></div>  
+    </div>
 
     <div class="welcome-box">
       🚀 به گروه حمل و نقل بین‌المللی حسنی خوش آمدید! <br>
@@ -381,10 +460,12 @@
       </select>  
       
       <label> تاریخ حرکت (شمسی) </label>  
-      <input type="text" id="date" placeholder="مثال: 1405/03/15">  
+      <div class="date-input-wrapper">
+        <input type="text" id="date-picker-input" placeholder="انتخاب تاریخ رزرو سفر" onkeydown="return event.key === 'Backspace' || event.key === 'Delete';">  
+      </div>
       
-      <label> آدرس یا توضیحات </label>  
-      <textarea id="address" rows="4" placeholder="آدرس دقیق مبدا، مقصد یا توضیحات اضافی..."></textarea>  
+      <label> آدرس و یا توضیحات دقیق مسافر </label>  
+      <textarea id="address" rows="5" placeholder="(ادرس و لینگ نشانی گوگل مپس دقیق مسافر ازجایی که سوار تاکسی میشود با توضیحات اضافه شما در این قسمت درج شود)"></textarea>  
       
       <button class="btn" onclick="sendToWhatsApp()">  
         ثبت رزرو و ارسال به واتساپ  
@@ -405,12 +486,15 @@
         <a href="tel:+93780889098" class="nav-btn btn-call">  
           📞 تماس مستقیم  
         </a>  
-        <a href="https://sites.google.com/view/taxi-herat-mashhad-hassani" target="_blank" class="nav-btn btn-site">  
-          🌐 ورود به سایت رسمی  
-        </a>  
+        
+        <!-- مکان این دو دکمه بر اساس درخواست شما کاملا جابجا شد -->
         <a href="https://t.me/ALIAKBAR_HASSANI" target="_blank" class="nav-btn btn-telegram">
           ✈️ کانال تلگرام تاکسی حسنی
         </a>
+
+        <a href="https://sites.google.com/view/taxi-herat-mashhad-hassani" target="_blank" class="nav-btn btn-site">  
+          🌐 ورود به سایت اصلی برای کسب اطلاعات بیشتر
+        </a>  
       </div>
       
       <div class="footer">  
@@ -421,12 +505,30 @@
     </div>  
   </div>  
 
-  <a href="https://wa.me/93780889098" class="whatsapp-float" target="_blank" title="ارسال پیام عمومی">  
+  <a href="https://wa.me/93780889098" class="whatsapp-float" target="_blank">  
     💬  
   </a>
 
+  <!-- لود پیش‌نیازهای جی‌کوئری و کتابخانه تقویم شمسی رسمی -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/persian-date.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
+
   <script>
-    // سیستم نمایش ساعت دقیق و تاریخ جلالی
+    // فعال‌سازی تقویم شمسی هوشمند با قابلیت ویرایش مجدد
+    $(document).ready(function() {
+      $('#date-picker-input').pDatepicker({
+        format: 'YYYY/MM/DD',
+        autoClose: true,
+        initialValue: true, 
+        minDate: new persianDate().valueOf(), 
+        navigator: {
+          scroll: { enabled: false }
+        }
+      });
+    });
+
+    // سیستم ساعت و تاریخ لایو
     function updateLiveMeta() {
       let now = new Date();
       document.getElementById("clock").innerHTML = now.toLocaleTimeString("fa-IR");
@@ -438,45 +540,55 @@
     updateLiveMeta();
     setInterval(updateLiveMeta, 1000);
 
-    // سیستم اشتراک‌گذاری لینک سایت
+    // اشتراک‌گذاری پیشرفته همراه با متن تبلیغاتی مشتری‌پسند و پیوست لینک اختصاصی پیج
     function shareWebsite() {
-      const shareData = {
-        title: 'تاکسی VIP حسنی',
-        text: 'سفر راحت، سریع و مطمئن بین هرات و مشهد با خدمات VIP حسنی',
-        url: 'https://sites.google.com/view/taxi-herat-mashhad-hassani'
-      };
+      const shareTitle = 'تاکسی بین‌المللی VIP حسنی';
+      const shareText = `🚖 تاکسی بین‌المللی VIP حسنی (هرات ⇄ مشهد)
+
+✨ سفری ایمن، سریع و فوق‌العاده راحت را با خودروهای لوکس و VIP تجربه کنید!
+⏰ اعزام سرویس به صورت ۲۴ ساعته و بدون معطلی
+🇦🇫 تماس افغانستان: 0780889098
+🇮🇷 تماس ایران: 09351023670
+
+👇 جهت رزرو آنلاین، آسان و فوری روی لینک زیر کلیک کنید:`;
+      const shareUrl = 'https://taxi-reservation-herat-mashhad-hassan.netlify.app';
+
+      const fullMessage = ${shareText}\n${shareUrl};
 
       if (navigator.share) {
-        navigator.share(shareData)
-          .catch((err) => console.log('خطا در اشتراک‌گذاری', err));
+        navigator.share({
+          title: shareTitle,
+          text: fullMessage
+        }).catch((err) => console.log(err));
       } else {
-        // روش جایگزین برای کامپیوتر (کپی کردن لینک در حافظه سیستم)
-        navigator.clipboard.writeText(shareData.url);
-        alert("لینک سایت با موفقیت کپی شد! می‌توانید آن را برای دوستانتان بفرستید.");
+        navigator.clipboard.writeText(fullMessage).then(() => {
+          alert("💥 پیام تبلیغاتی شیک همراه با لینک سایت کپی شد!\nاکنون می‌توانید آن را در تلگرام، واتساپ یا گروه‌های خود برای دوستانتان بفرستید (Paste کنید).");
+        }).catch((err) => {
+          console.error("خطا در کپی متن: ", err);
+        });
       }
     }
 
-    // ارسال فرم رزرو (ساختار پیش‌فرض پیام برای واتساپ)
+    // ارسال فرم به واتساپ
     function sendToWhatsApp() {  
       let name = document.getElementById("name").value;  
       let phone = document.getElementById("phone").value;  
       let route = document.getElementById("route").value;  
       let passengers = document.getElementById("passengers").value;  
       let carType = document.getElementById("carType").value;  
-      let date = document.getElementById("date").value;  
+      let date = document.getElementById("date-picker-input").value;  
       let address = document.getElementById("address").value;  
       
       if (name.trim() === "" || phone.trim() === "" || date.trim() === "") {  
-        alert("لطفاً فیلدهای ضروری (نام، شماره تماس و تاریخ حرکت) را پر کنید.");  
+        alert("لطفاً فیلدهای ضروری (نام، شماره تماس و تاریخ حرکت) را مشخص فرمایید.");  
         return;  
       }  
       
-      if (phone.length < 9) {  
+      if (phone.length < 9) {
         alert("لطفاً یک شماره تماس معتبر وارد کنید.");  
         return;  
       }  
       
-      // پیام پیش‌فرض منظم و ساختاریافته دریافتی در واتساپ مدیریت
       let message = `سلام و احترام؛ درخواست رزرو سفر جدید دارم 👇
 
 🚖 نوع خدمات: رزرو تاکسی بین‌المللی VIP
@@ -489,8 +601,8 @@
 📍 آدرس دقیق / توضیحات اضافی: ${address ? address : 'ذکر نشده'}
 
 ---
-سلام، من این فرم را از طریق سایت شما ارسال کرده‌ام؛ لطفاً قیمت نهایی و زمان هماهنگی خودرو را تایید فرمایید.
-🌐 لینک سایت ثبت‌نام: https://sites.google.com/view/taxi-herat-mashhad-hassani`;  
+سلام، من این فرم را از طریق سایت شما ارسال کرده‌ام؛ لطفاً فرم رزرو زمان حرکت از مبداء هماهنگی مرا را تایید فرمایید.
+🌐 لینک سایت ثبت‌نام: https://taxi-reservation-herat-mashhad-hassan.netlify.app`;  
       
       alert("در حال انتقال به واتساپ پشتیبانی...");  
       let whatsappURL = "https://wa.me/93780889098?text=" + encodeURIComponent(message);  
