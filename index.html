@@ -7,11 +7,8 @@
 
   <title>تاکسی VIP حسنی</title>
 
-  <!-- فونت وزیر -->
-  <link rel="stylesheet" href="https://jsdelivr.net">
-  
-  <!-- استایل‌های تقویم شمسی -->
-  <link rel="stylesheet" href="https://github.io">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
 
   <style>
     body {
@@ -30,7 +27,6 @@
       border-radius: 25px;
       overflow: hidden;
       border: 1px solid rgba(255, 215, 0, 0.4);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
     }
 
     .header {
@@ -44,11 +40,6 @@
       border-radius: 50%;
       border: 3px solid gold;
       object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .logo:hover {
-      transform: rotate(360deg);
     }
 
     h1 {
@@ -69,11 +60,10 @@
 
     .car {
       width: calc(100% - 40px);
-      height: 150px;
+      height: 220px;
       margin: 0 auto;
       border-radius: 20px;
-      background: linear-gradient(45deg, #111, #333);
-      border: 1px solid rgba(255, 215, 0, 0.2);
+      background: url('./Logo.png') center/cover no-repeat;
     }
 
     .form-box {
@@ -99,26 +89,11 @@
       color: white;
       font-family: Vazirmatn, sans-serif;
       box-sizing: border-box;
-      transition: all 0.3s ease;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: gold;
-      background: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
     }
 
     textarea {
       min-height: 100px;
       resize: vertical;
-    }
-
-    /* انیمیشن نبض برای دکمه اصلی رزرو */
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
-      70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
     }
 
     button {
@@ -131,17 +106,6 @@
       font-size: 15px;
       font-weight: bold;
       cursor: pointer;
-      transition: all 0.2s ease;
-      animation: pulse 2s infinite;
-    }
-
-    button:hover {
-      background: linear-gradient(to left, orange, gold);
-      transform: translateY(-2px);
-    }
-
-    button:active {
-      transform: scale(0.98);
     }
 
     .info {
@@ -168,16 +132,6 @@
       border-radius: 14px;
       text-align: center;
       font-weight: bold;
-      transition: all 0.3s ease;
-    }
-
-    .links a:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
-
-    .links a:active {
-      transform: scale(0.97);
     }
 
     .call {
@@ -209,43 +163,6 @@
       color: white;
       font-size: 28px;
       text-decoration: none;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      z-index: 9999;
-      transition: all 0.3s ease;
-    }
-
-    .whatsapp:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
-    }
-
-    /* انیمیشن و ظاهر اختصاصی تقویم شمسی */
-    .pdatepicker {
-      font-family: Vazirmatn, sans-serif !important;
-      border-radius: 15px !important;
-      border: 1px solid gold !important;
-      background: #111 !important;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5) !important;
-      animation: fadeInSlide 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-
-    @keyframes fadeInSlide {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .pdatepicker table th, .pdatepicker table td {
-      color: #fff !important;
-    }
-
-    .pdatepicker .selected a {
-      background-color: gold !important;
-      color: #000 !important;
-      border-radius: 8px !important;
     }
   </style>
 </head>
@@ -276,31 +193,31 @@
 
     <div class="form-box">
 
-      <label for="name">نام و نام خانوادگی</label>
-      <input type="text" id="name" required placeholder="مثال: علی احمدی">
+      <label>نام و نام خانوادگی</label>
+      <input type="text" id="name">
 
-      <label for="phone">شماره تماس</label>
-      <input type="tel" id="phone" required placeholder="مثال: 0780889098">
+      <label>شماره تماس</label>
+      <input type="tel" id="phone">
 
-      <label for="route">مسیر سفر</label>
+      <label>مسیر سفر</label>
       <select id="route">
-        <option value="هرات ➜ مشهد VIP">هرات ➜ مشهد VIP</option>
-        <option value="مشهد ➜ هرات VIP">مشهد ➜ هرات VIP</option>
+        <option>هرات ➜ مشهد VIP</option>
+        <option>مشهد ➜ هرات VIP</option>
       </select>
 
-      <label for="passengers">تعداد مسافر</label>
+      <label>تعداد مسافر</label>
       <select id="passengers">
-        <option value="1 نفر">1 نفر</option>
-        <option value="2 نفر">2 نفر</option>
-        <option value="3 نفر">3 نفر</option>
-        <option value="4 نفر">4 نفر</option>
+        <option>1 نفر</option>
+        <option>2 نفر</option>
+        <option>3 نفر</option>
+        <option>4 نفر</option>
       </select>
 
-      <label for="date">تاریخ حرکت</label>
-      <input type="text" id="date" class="pdate" required placeholder="برای انتخاب تاریخ کلیک کنید" readonly style="cursor: pointer;">
+      <label>تاریخ حرکت</label>
+      <input type="date" id="date">
 
-      <label for="address">آدرس و توضیحات</label>
-      <textarea id="address" placeholder="آدرس دقیق یا توضیحات اضافی (اختیاری)"></textarea>
+      <label>آدرس و توضیحات</label>
+      <textarea id="address"></textarea>
 
       <button id="submitBtn">
         ثبت رزرو و ارسال به واتساپ
@@ -322,16 +239,14 @@
           📞 تماس مستقیم
         </a>
 
-        <a href="https://t.me"
+        <a href="https://t.me/ALIAKBAR_HASSANI"
           target="_blank"
-          rel="noopener noreferrer"
           class="telegram">
           ✈️ کانال تلگرام
         </a>
 
-        <a href="https://google.com"
+        <a href="https://sites.google.com/view/taxi-herat-mashhad-hassani"
           target="_blank"
-          rel="noopener noreferrer"
           class="site">
           🌐 سایت اصلی
         </a>
@@ -343,65 +258,68 @@
   </div>
 
   <a
-    href="https://whatsapp.com"
+    href="https://api.whatsapp.com/message/3YHT6E4WZFNLM1?autoload=1&app_absent=0"
     target="_blank"
-    rel="noopener noreferrer"
     class="whatsapp">
     💬
   </a>
 
-  <!-- پیش‌نیازهای جاوااسکریپت تقویم شمسی -->
-  <script src="https://jquery.com"></script>
-  <script src="https://github.io"></script>
-  <script src="https://github.io"></script>
-
   <script>
-    $(document).ready(function() {
-      $(".pdate").pDatepicker({
-        format: 'YYYY/MM/DD',
-        autoClose: true,
-        minDate: new persianDate().valueOf(),
-        navigator: {
-          scroll: {
-            enabled: false
-          }
-        }
-      });
-    });
-
     function updateClock() {
       const now = new Date();
-      document.getElementById("clock").innerText = now.toLocaleTimeString("fa-IR");
+
+      document.getElementById("clock").innerText =
+        now.toLocaleTimeString("fa-IR");
     }
 
     updateClock();
+
     setInterval(updateClock, 1000);
 
-    document.getElementById("submitBtn").addEventListener("click", function () {
-      const name = document.getElementById("name").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-      const route = document.getElementById("route").value;
-      const passengers = document.getElementById("passengers").value;
-      const date = document.getElementById("date").value.trim();
-      const address = document.getElementById("address").value.trim();
+    document
+      .getElementById("submitBtn")
+      .addEventListener("click", function () {
 
-      if (!name || !phone || !date) {
-        alert("لطفاً اطلاعات ضروری (نام، شماره تماس و تاریخ) را کامل کنید");
-        return;
-      }
+        const name =
+          document.getElementById("name").value;
 
-      const textMessage = 
-        سلام، درخواست رزرو دارم.\n\n +
-        نام: ${name}\n +
-        شماره تماس: ${phone}\n +
-        مسیر: ${route}\n +
-        تعداد مسافر: ${passengers}\n +
-        تاریخ حرکت: ${date}\n +
-        آدرس: ${address ? address : 'ذکر نشده'};
+        const phone =
+          document.getElementById("phone").value;
 
-      const url = "https://wa.me" + encodeURIComponent(textMessage);
-      window.open(url, "_blank");
-    });
+        const route =
+          document.getElementById("route").value;
+
+        const passengers =
+          document.getElementById("passengers").value;
+
+        const date =
+          document.getElementById("date").value;
+
+        const address =
+          document.getElementById("address").value;
+
+        if (!name || !phone || !date) {
+
+          alert("لطفاً اطلاعات ضروری را کامل کنید");
+
+          return;
+        }
+
+        const text =
+          "سلام، درخواست رزرو دارم.%0A%0A" +
+          "نام: " + name + "%0A" +
+          "شماره تماس: " + phone + "%0A" +
+          "مسیر: " + route + "%0A" +
+          "تعداد مسافر: " + passengers + "%0A" +
+          "تاریخ حرکت: " + date + "%0A" +
+          "آدرس: " + address;
+
+        const url =
+          "https://wa.me/93780889098?text=" + text;
+
+        window.open(url, "_blank");
+
+      });
   </script>
 
 </body>
