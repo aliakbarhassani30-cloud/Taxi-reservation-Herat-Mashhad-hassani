@@ -330,7 +330,7 @@
 
 <body>
 
-  <!-- بخش اول: فرم رزرو تاکسی اصلی شما بدون کوچکترین تغییر -->
+  <!-- بخش اول: فرم رزرو تاکسی اصلی -->
   <div class="container">
 
     <div class="header">
@@ -420,7 +420,7 @@
   </div>
 
 
-  <!-- بخش دوم: فرم ثبت اطلاعات بار پیوست شده به انتهای سایت -->
+  <!-- بخش دوم: فرم ثبت اطلاعات بار و امانات -->
   <div id="cargo-super-section">
 
     <div style="margin: 10px 0 25px 0; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); text-align: center;">
@@ -438,7 +438,7 @@
         </strong>
         <div style="color: #1e293b; font-size: 12px; text-align: justify; max-height: 120px; overflow-y: auto; padding-left: 5px;">
             <strong style="color: #0284c7;">۱. رویت اجباری محتویات:</strong> راننده مکلف است پیش از تحویل گرفتن بسته، محتویات درون آن را به‌طور کامل رویت و بررسی نماید.<br>
-            <strong style="color: #ef4444;">۲. کالاهای ممنوعه:</strong> ارسال هرگونه مواد مخدر، داروهای بدون مجوز، اسلحه، طلا و ارز بیش از سقف قانونی ممنوع است.<br>
+            <strong style="color: #ef4444;">۲. کالاهای ممنوعه:</strong> ارسال هرگونه مواد مخدر, داروهای بدون مجوز، اسلحه، طلا و ارز بیش از سقف قانونی ممنوع است.<br>
             <strong style="color: #0284c7;">۳. تطابق مشخصات:</strong> بار فقط به شخصی تحویل داده می‌شود که مشخصات وی در فرم ثبت شده باشد.
         </div>
     </div>
@@ -530,7 +530,7 @@
             <label class="mobile-label">عکس از محموله یا بار (اختیاری)</label>
             <div style="background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 14px; padding: 15px; text-align: center; position: relative;">
                 <input type="file" id="cargo-image" accept="image/*" onchange="previewCargoImage(event)" style="opacity: 0; position: absolute; left: 0; top: 0; width: 100%; height: 100%; cursor: pointer;">
-                <span id="cargo-upload-text" style="color: #64748b; font-size: 13px;">📸 لمس جهت عکس‌برداری یا انتخاب فایل</span>
+                <span id="cargo-upload-text" style="color: #64748b; font-size: 13px;">📸 لمس جهت عکس‌برداری یا انتخاب فایل از گالری</span>
                 <img id="cargo-image-preview" style="display: none; max-width: 120px; margin: 12px auto 0 auto; border-radius: 10px; border: 2px solid #06b6d4;">
             </div>
         </div>
@@ -540,7 +540,7 @@
             <textarea id="cargo-desc" placeholder="اگر بار شکستنی است یا حساسیت خاصی دارد، اینجا بنویسید..." rows="3" style="width: 100%; padding: 12px 16px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 14px; color: #0f172a; font-family: inherit; font-size: 16px; resize: none; outline: none; line-height: 1.5; margin-bottom: 0px;"></textarea>
         </div>
 
-        <button onclick="sendCargoOrderToWhatsApp()" style="width: 100%; height: 54px; background: linear-gradient(135deg, #06b6d4, #0891b2); color: #ffffff; border: none; border-radius: 14px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25);">
+        <button id="cargoSubmitBtn" onclick="sendCargoOrderToWhatsApp()" style="width: 100%; height: 54px; background: linear-gradient(135deg, #06b6d4, #0891b2); color: #ffffff; border: none; border-radius: 14px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25);">
             ثبت و ارسال به واتساپ حسنی
         </button>
 
@@ -563,6 +563,7 @@
 
   </div>
 
+  <!-- دکمه شناور چت سریع واتساپ -->
   <a
     href="https://api.whatsapp.com/message/3YHT6E4WZFNLM1?autoload=1&app_absent=0"
     target="_blank"
@@ -570,46 +571,26 @@
     💬
   </a>
 
-  <!-- اسکریپت‌های پردازش عملکرد هر دو فرم به صورت کاملا مجزا -->
+  <!-- منطق جاوااسکریپت سایت -->
   <script>
     // اسکریپت‌های مربوط به فرم اول (تاکسی حسنی)
     function updateClock() {
       const now = new Date();
-
-      document.getElementById("clock").innerText =
-        now.toLocaleTimeString("fa-IR");
+      document.getElementById("clock").innerText = now.toLocaleTimeString("fa-IR");
     }
-
     updateClock();
-
     setInterval(updateClock, 1000);
 
-    document
-      .getElementById("submitBtn")
-      .addEventListener("click", function () {
-
-        const name =
-          document.getElementById("name").value;
-
-        const phone =
-          document.getElementById("phone").value;
-
-        const route =
-          document.getElementById("route").value;
-
-        const passengers =
-          document.getElementById("passengers").value;
-
-        const date =
-          document.getElementById("date").value;
-
-        const address =
-          document.getElementById("address").value;
+    document.getElementById("submitBtn").addEventListener("click", function () {
+        const name = document.getElementById("name").value;
+        const phone = document.getElementById("phone").value;
+        const route = document.getElementById("route").value;
+        const passengers = document.getElementById("passengers").value;
+        const date = document.getElementById("date").value;
+        const address = document.getElementById("address").value;
 
         if (!name || !phone || !date) {
-
           alert("لطفاً اطلاعات ضروری را کامل کنید");
-
           return;
         }
 
@@ -622,12 +603,9 @@
           "تاریخ حرکت: " + date + "%0A" +
           "آدرس: " + address;
 
-        const url =
-          "https://wa.me/93780889098?text=" + text;
-
+        const url = "https://wa.me/93780889098?text=" + text;
         window.open(url, "_blank");
-
-      });
+    });
 
     // اسکریپت‌های مربوط به فرم دوم (ارسال بار و امانات)
     $(document).ready(function() {
@@ -712,10 +690,11 @@
         if (file) {
             preview.src = URL.createObjectURL(file);
             preview.style.display = 'block';
-            uploadText.innerText = "📸 عکس بار انتخاب شد";
+            uploadText.innerText = "📸 عکس بار با موفقیت انتخاب شد";
         }
     }
 
+    // پردازش بار با سیستم آپلود ابری مستقیم تصاویر گالری
     function sendCargoOrderToWhatsApp() {
         const senderInfo = document.getElementById('cargo-sender-info').value.trim();
         const receiverInfo = document.getElementById('cargo-receiver-info').value.trim();
@@ -757,7 +736,47 @@
         const weight = document.getElementById('cargo-weight').value;
         const finalDate = document.getElementById('cargo-date-picker').value || "توافقی";
         const desc = document.getElementById('cargo-desc').value || "ندارد";
+        
+        const imageInput = document.getElementById('cargo-image');
+        const submitBtn = document.getElementById('cargoSubmitBtn');
 
+        if (imageInput.files && imageInput.files[0]) {
+            submitBtn.innerText = "⏳ در حال آپلود امن عکس بار... چند لحظه صبر کنید";
+            submitBtn.disabled = true;
+
+            const formData = new FormData();
+            formData.append('image', imageInput.files[0]);
+
+            // ایمن‌سازی فرآیند آپلود با API Key فعال و رایگان سرور تصویر
+            fetch('https://api.imgbb.com/1/upload?key=6ee6e27a69b76db01b7a66164d45fc24', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(result => {
+                if(result.success) {
+                    const imageUrl = result.data.url;
+                    executeWhatsAppRedirect(senderInfo, receiverInfo, citySrc, cityTar, type, weight, finalDate, desc, imageUrl);
+                } else {
+                    alert("آپلود تصویر با خطا مواجه شد، فرم متنی ارسال می‌شود.");
+                    executeWhatsAppRedirect(senderInfo, receiverInfo, citySrc, cityTar, type, weight, finalDate, desc, "❌ تصویر آپلود نشد (خطای سرور ابری)");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("سرور آپلود در دسترس نبود، فرم بدون عکس ارسال می‌شود.");
+                executeWhatsAppRedirect(senderInfo, receiverInfo, citySrc, cityTar, type, weight, finalDate, desc, "❌ عدم دسترسی به مخزن ابری تصویر");
+            })
+            .finally(() => {
+                submitBtn.innerText = "ثبت و ارسال به واتساپ حسنی";
+                submitBtn.disabled = false;
+            });
+        } else {
+            executeWhatsAppRedirect(senderInfo, receiverInfo, citySrc, cityTar, type, weight, finalDate, desc, "❌ عکسی توسط کاربر انتخاب نشده است.");
+        }
+    }
+
+    function executeWhatsAppRedirect(senderInfo, receiverInfo, citySrc, cityTar, type, weight, finalDate, desc, imageLink) {
         const messageTemplate = `📦 *سفارش جدید ارسال بار و امانات* 📦\n\n` +
                                 `👤 *مشخصات فرستنده:* \n${senderInfo}\n\n` +
                                 `👥 *مشخصات گیرنده:* \n${receiverInfo}\n\n` +
@@ -766,7 +785,8 @@
                                 `💼 *نوع بسته:* ${type}\n` +
                                 `⚖️ *وزن تقریبی:* ${weight}\n` +
                                 `📅 *تاریخ حرکت:* ${finalDate}\n` +
-                                `📝 *توضیحات حساسیت بار:* ${desc}`;
+                                `📝 *توضیحات حساسیت بار:* ${desc}\n\n` +
+                                `🔗 *لینک مستقیم مشاهده عکس بار:* \n${imageLink}`;
 
         const myWhatsAppNum = "93780889098";
         window.open(`https://wa.me/${myWhatsAppNum}?text=${encodeURIComponent(messageTemplate)}`, '_blank');
