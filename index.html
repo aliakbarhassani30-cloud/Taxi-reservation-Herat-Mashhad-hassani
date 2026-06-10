@@ -330,7 +330,7 @@
 
 <body>
 
-  <!-- بخش اول: فرم رزرو تاکسی اصلی -->
+  <!-- بخش اول: فرم رزرو تاکسی اصلی شما -->
   <div class="container">
 
     <div class="header">
@@ -623,7 +623,7 @@
         iran: [
             "خراسان رضوی (مشهد، تایباد)", "تهران", "اصفهان", "فارس (شیراز)", "کرمان", "قم", "یزد", 
             "خراسان جنوبی (بیرجند)", "سیستان و بلوچستان (زاهدان)", "البرز (کرج)", "آذربایجان شرقی (تبریز)",
-            "گلستان (گرگان)", "مازندران (ساری)", "گیلان (رشت)", "همدان", "مرکزی (اراک)"
+            "گلستان (گرگان)", "مازندران (sari)", "گیلان (رشت)", "همدان", "مرکزی (اراک)"
         ],
         afghanistan: [
             "هرات", "کابل", "نیمروز (زرنج)", "قندهار", "بلخ (مزار شریف)", "غزنی", "فراه", "بادغیس", 
@@ -694,7 +694,7 @@
         }
     }
 
-    // پردازش بار با سیستم آپلود ابری مستقیم تصاویر گالری
+    // منطق آپلود تصویر از گالری روی سرور بدون تحریم تلگراف (Telegraph)
     function sendCargoOrderToWhatsApp() {
         const senderInfo = document.getElementById('cargo-sender-info').value.trim();
         const receiverInfo = document.getElementById('cargo-receiver-info').value.trim();
@@ -745,27 +745,27 @@
             submitBtn.disabled = true;
 
             const formData = new FormData();
-            formData.append('image', imageInput.files[0]);
+            formData.append('file', imageInput.files[0]);
 
-            // ایمن‌سازی فرآیند آپلود با API Key فعال و رایگان سرور تصویر
-            fetch('https://api.imgbb.com/1/upload?key=6ee6e27a69b76db01b7a66164d45fc24', {
+            // استفاده از سرور بین‌المللی و ۱۰۰٪ بدون تحریم تلگراف برای پایداری کامل در تمام شبکه‌ها
+            fetch('https://telegra.ph/upload', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.json())
             .then(result => {
-                if(result.success) {
-                    const imageUrl = result.data.url;
+                if(result && result[0] && result[0].src) {
+                    const imageUrl = 'https://telegra.ph' + result[0].src;
                     executeWhatsAppRedirect(senderInfo, receiverInfo, citySrc, cityTar, type, weight, finalDate, desc, imageUrl);
                 } else {
-                    alert("آپلود تصویر با خطا مواجه شد، فرم متنی ارسال می‌شود.");
-                    executeWhatsAppRedirect(senderInfo, receiverInfo, citySrc, cityTar, type, weight, finalDate, desc, "❌ تصویر آپلود نشد (خطای سرور ابری)");
+                    alert("آپلود تصویر انجام نشد، فرم به صورت متنی ارسال می‌شود.");
+                    executeWhatsAppRedirect(senderInfo, receiverInfo, citySrc, cityTar, type, weight, finalDate, desc, "❌ تصویر آپلود نشد (خطای پاسخ سرور)");
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
-                alert("سرور آپلود در دسترس نبود، فرم بدون عکس ارسال می‌شود.");
-                executeWhatsAppRedirect(senderInfo, receiverInfo, citySrc, cityTar, type, weight, finalDate, desc, "❌ عدم دسترسی به مخزن ابری تصویر");
+                console.error('Upload Error:', error);
+                alert("ارتباط با سرور ابری عکس برقرار نشد، فرم بدون عکس ارسال می‌شود.");
+                executeWhatsAppRedirect(senderInfo, receiverInfo, citySrc, cityTar, type, weight, finalDate, desc, "❌ خطای شبکه در دسترسی به سرور عکس");
             })
             .finally(() => {
                 submitBtn.innerText = "ثبت و ارسال به واتساپ حسنی";
