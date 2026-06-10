@@ -191,6 +191,8 @@
         box-sizing: border-box;
         -webkit-tap-highlight-color: transparent;
     }
+    
+    /* یکدست‌سازی استایل تمام کادرها بر اساس کادرهای اول و دوم */
     .mobile-field {
         width: 100%;
         height: 54px;
@@ -223,24 +225,31 @@
         position: relative;
         margin-bottom: 0px;
     }
+
+    /* تنظیم رنگ بسیار کم‌رنگ برای متن‌های پیش‌فرض راهنما */
     .mobile-field::placeholder, .mobile-textarea::placeholder {
-        color: #94a3b8 !important; 
-        opacity: 1;
+        color: #cbd5e1 !important; 
+        opacity: 0.8;
     }
+
+    /* انیمیشن مکان‌نما یا خط چشمک‌زن برای تمام کادرهای متنی خالی */
     @keyframes placeholder-cursor {
         0%, 100% { border-right-color: transparent; }
         50% { border-right-color: #06b6d4; }
     }
-    .mobile-textarea:placeholder-shown {
+    .mobile-textarea:placeholder-shown, .mobile-field:placeholder-shown {
         border-right: 3px solid transparent;
         animation: placeholder-cursor 1s infinite;
     }
+
+    /* تغییر وضعیت کادرها هنگام فوکوس و لمس کاربر */
     .mobile-field:focus, .mobile-textarea:focus {
         border-color: #06b6d4;
         background: #ffffff;
         animation: none; 
         border-right: 1px solid #06b6d4;
     }
+
     .mobile-label {
         color: #0f172a;
         display: block;
@@ -526,18 +535,9 @@
             </div>
         </div>
 
-        <div style="margin-bottom: 20px;">
-            <label class="mobile-label">عکس از محموله یا بار (اختیاری)</label>
-            <div style="background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 14px; padding: 15px; text-align: center; position: relative;">
-                <input type="file" id="cargo-image" accept="image/*" onchange="previewCargoImage(event)" style="opacity: 0; position: absolute; left: 0; top: 0; width: 100%; height: 100%; cursor: pointer;">
-                <span id="cargo-upload-text" style="color: #64748b; font-size: 13px;">📸 لمس جهت عکس‌برداری یا انتخاب فایل از گالری</span>
-                <img id="cargo-image-preview" style="display: none; max-width: 120px; margin: 12px auto 0 auto; border-radius: 10px; border: 2px solid #06b6d4;">
-            </div>
-        </div>
-
         <div style="margin-bottom: 24px;">
             <label class="mobile-label">توضیحات اضافی حساسیت بار</label>
-            <textarea id="cargo-desc" placeholder="اگر بار شکستنی است یا حساسیت خاصی دارد، اینجا بنویسید..." rows="3" style="width: 100%; padding: 12px 16px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 14px; color: #0f172a; font-family: inherit; font-size: 16px; resize: none; outline: none; line-height: 1.5; margin-bottom: 0px;"></textarea>
+            <textarea id="cargo-desc" placeholder="اگر بار شکستنی است یا حساسیت خاصی دارد، اینجا بنویسید..." rows="3" class="mobile-textarea"></textarea>
         </div>
 
         <button id="cargoSubmitBtn" onclick="sendCargoOrderToWhatsApp()" style="width: 100%; height: 54px; background: linear-gradient(135deg, #06b6d4, #0891b2); color: #ffffff; border: none; border-radius: 14px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25);">
@@ -623,7 +623,7 @@
         iran: [
             "خراسان رضوی (مشهد، تایباد)", "تهران", "اصفهان", "فارس (شیراز)", "کرمان", "قم", "یزد", 
             "خراسان جنوبی (بیرجند)", "سیستان و بلوچستان (زاهدان)", "البرز (کرج)", "آذربایجان شرقی (تبریز)",
-            "گلستان (گرگان)", "مازندران (sari)", "گیلان (رشت)", "همدان", "مرکزی (اراک)"
+            "گلستان (گرگان)", "مازندران (ساری)", "گیلان (رشت)", "همدان", "مرکزی (اراک)"
         ],
         afghanistan: [
             "هرات", "کابل", "نیمروز (زرنج)", "قندهار", "بلخ (مزار شریف)", "غزنی", "فراه", "بادغیس", 
@@ -683,18 +683,7 @@
         }
     }
 
-    function previewCargoImage(event) {
-        const preview = document.getElementById('cargo-image-preview');
-        const uploadText = document.getElementById('cargo-upload-text');
-        const file = event.target.files[0];
-        if (file) {
-            preview.src = URL.createObjectURL(file);
-            preview.style.display = 'block';
-            uploadText.innerText = "📸 عکس بار با موفقیت انتخاب شد";
-        }
-    }
-
-    // منطق آپلود تصویر از گالری روی سرور بدون تحریم تلگراف (Telegraph)
+    // ارسال مستقیم فرم بار و امانات به واتساپ بدون خطای تصویر
     function sendCargoOrderToWhatsApp() {
         const senderInfo = document.getElementById('cargo-sender-info').value.trim();
         const receiverInfo = document.getElementById('cargo-receiver-info').value.trim();
@@ -736,47 +725,7 @@
         const weight = document.getElementById('cargo-weight').value;
         const finalDate = document.getElementById('cargo-date-picker').value || "توافقی";
         const desc = document.getElementById('cargo-desc').value || "ندارد";
-        
-        const imageInput = document.getElementById('cargo-image');
-        const submitBtn = document.getElementById('cargoSubmitBtn');
 
-        if (imageInput.files && imageInput.files[0]) {
-            submitBtn.innerText = "⏳ در حال آپلود امن عکس بار... چند لحظه صبر کنید";
-            submitBtn.disabled = true;
-
-            const formData = new FormData();
-            formData.append('file', imageInput.files[0]);
-
-            // استفاده از سرور بین‌المللی و ۱۰۰٪ بدون تحریم تلگراف برای پایداری کامل در تمام شبکه‌ها
-            fetch('https://telegra.ph/upload', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(result => {
-                if(result && result[0] && result[0].src) {
-                    const imageUrl = 'https://telegra.ph' + result[0].src;
-                    executeWhatsAppRedirect(senderInfo, receiverInfo, citySrc, cityTar, type, weight, finalDate, desc, imageUrl);
-                } else {
-                    alert("آپلود تصویر انجام نشد، فرم به صورت متنی ارسال می‌شود.");
-                    executeWhatsAppRedirect(senderInfo, receiverInfo, citySrc, cityTar, type, weight, finalDate, desc, "❌ تصویر آپلود نشد (خطای پاسخ سرور)");
-                }
-            })
-            .catch(error => {
-                console.error('Upload Error:', error);
-                alert("ارتباط با سرور ابری عکس برقرار نشد، فرم بدون عکس ارسال می‌شود.");
-                executeWhatsAppRedirect(senderInfo, receiverInfo, citySrc, cityTar, type, weight, finalDate, desc, "❌ خطای شبکه در دسترسی به سرور عکس");
-            })
-            .finally(() => {
-                submitBtn.innerText = "ثبت و ارسال به واتساپ حسنی";
-                submitBtn.disabled = false;
-            });
-        } else {
-            executeWhatsAppRedirect(senderInfo, receiverInfo, citySrc, cityTar, type, weight, finalDate, desc, "❌ عکسی توسط کاربر انتخاب نشده است.");
-        }
-    }
-
-    function executeWhatsAppRedirect(senderInfo, receiverInfo, citySrc, cityTar, type, weight, finalDate, desc, imageLink) {
         const messageTemplate = `📦 *سفارش جدید ارسال بار و امانات* 📦\n\n` +
                                 `👤 *مشخصات فرستنده:* \n${senderInfo}\n\n` +
                                 `👥 *مشخصات گیرنده:* \n${receiverInfo}\n\n` +
@@ -785,8 +734,7 @@
                                 `💼 *نوع بسته:* ${type}\n` +
                                 `⚖️ *وزن تقریبی:* ${weight}\n` +
                                 `📅 *تاریخ حرکت:* ${finalDate}\n` +
-                                `📝 *توضیحات حساسیت بار:* ${desc}\n\n` +
-                                `🔗 *لینک مستقیم مشاهده عکس بار:* \n${imageLink}`;
+                                `📝 *توضیحات حساسیت بار:* ${desc}`;
 
         const myWhatsAppNum = "93780889098";
         window.open(`https://wa.me/${myWhatsAppNum}?text=${encodeURIComponent(messageTemplate)}`, '_blank');
