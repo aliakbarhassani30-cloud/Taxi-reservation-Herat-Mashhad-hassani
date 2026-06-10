@@ -3,12 +3,18 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
   <title>تاکسی VIP حسنی</title>
 
   <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+  
+  <!-- وابستگی‌های افزونه تاریخ شمسی فرم بار -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/persian-date.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
 
   <style>
     body {
@@ -163,12 +169,168 @@
       color: white;
       font-size: 28px;
       text-decoration: none;
+      z-index: 9999;
     }
+
+    /* ----------------------------------------------------- */
+    /* استایل‌های اختصاصی مربوط به فرم دوم (ارسال بار و امانات) */
+    /* ----------------------------------------------------- */
+    #cargo-super-section {
+        width: 100%;
+        max-width: 480px;
+        margin: 20px auto 0 auto;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        text-align: right;
+        direction: rtl;
+        padding: 12px;
+        background-color: #f8fafc;
+        border-radius: 25px;
+        color: #0f172a;
+    }
+    #cargo-super-section * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .mobile-field {
+        width: 100%;
+        height: 54px;
+        padding: 0 16px;
+        background: #f8fafc;
+        border: 1px solid #cbd5e1;
+        border-radius: 14px;
+        color: #0f172a;
+        font-family: inherit;
+        font-size: 16px;
+        outline: none;
+        transition: border-color 0.2s, background-color 0.2s;
+        -webkit-appearance: none;
+        appearance: none;
+        margin-bottom: 0px;
+    }
+    .mobile-textarea {
+        width: 100%;
+        padding: 14px 16px;
+        background: #f8fafc;
+        border: 1px solid #cbd5e1;
+        border-radius: 14px;
+        color: #0f172a;
+        font-family: inherit;
+        font-size: 16px;
+        outline: none;
+        resize: none;
+        line-height: 1.6;
+        transition: border-color 0.2s, background-color 0.2s;
+        position: relative;
+        margin-bottom: 0px;
+    }
+    .mobile-field::placeholder, .mobile-textarea::placeholder {
+        color: #94a3b8 !important; 
+        opacity: 1;
+    }
+    @keyframes placeholder-cursor {
+        0%, 100% { border-right-color: transparent; }
+        50% { border-right-color: #06b6d4; }
+    }
+    .mobile-textarea:placeholder-shown {
+        border-right: 3px solid transparent;
+        animation: placeholder-cursor 1s infinite;
+    }
+    .mobile-field:focus, .mobile-textarea:focus {
+        border-color: #06b6d4;
+        background: #ffffff;
+        animation: none; 
+        border-right: 1px solid #06b6d4;
+    }
+    .mobile-label {
+        color: #0f172a;
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        padding-right: 4px;
+    }
+    .select-wrapper {
+        position: relative;
+        width: 100%;
+    }
+    .select-wrapper::after {
+        content: "▼";
+        font-size: 10px;
+        color: #64748b;
+        position: absolute;
+        left: 16px;
+        top: 22px;
+        pointer-events: none;
+    }
+    .custom-address-box {
+        background: #f0fdf4;
+        border: 1px dashed #22c55e;
+        border-radius: 16px;
+        padding: 14px;
+        margin-top: 12px;
+        display: none;
+    }
+    .share-site-container {
+        margin-top: 25px;
+        padding: 16px;
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        text-align: center;
+    }
+    .share-site-title {
+        font-size: 13px;
+        color: #475569;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+    .btn-main-share {
+        width: 100%;
+        height: 50px;
+        background: #ffffff;
+        color: #0f172a;
+        border: 1px solid #cbd5e1;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+    .social-share-grid {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        margin-top: 12px;
+    }
+    .social-btn {
+        flex: 1;
+        height: 44px;
+        border: none;
+        border-radius: 10px;
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .bg-telegram { background-color: #0088cc; }
+    .bg-whatsapp { background-color: #25d366; }
+    .bg-eitaa { background-color: #e37e24; }
+    .bg-rubika { background-color: #8b3da3; }
   </style>
 </head>
 
 <body>
 
+  <!-- بخش اول: فرم رزرو تاکسی اصلی شما بدون کوچکترین تغییر -->
   <div class="container">
 
     <div class="header">
@@ -257,6 +419,150 @@
 
   </div>
 
+
+  <!-- بخش دوم: فرم ثبت اطلاعات بار پیوست شده به انتهای سایت -->
+  <div id="cargo-super-section">
+
+    <div style="margin: 10px 0 25px 0; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); text-align: center;">
+        <h2 style="color: #0f172a; font-size: 14px; font-weight: 800; line-height: 1.6; margin: 0 0 10px 0;">
+            📦 ثبت آنلاین فرم و اطلاعات رزرو و هماهنگی برای ارسال بسته‌های پستی، بار و امانات و چمدان‌های کوچک و بزرگ شما
+        </h2>
+        <p style="color: #475569; font-size: 12.5px; line-height: 1.6; margin: 0; padding-top: 8px; border-top: 1px dashed #e2e8f0;">
+            لطفاً فرم زیر را با دقت پر کنید و برای ثبت و هماهنگی در واتساپ آقای حسنی ارسال کنید.
+        </p>
+    </div>
+
+    <div style="background: linear-gradient(135deg, #f0f4ff, #e0f2fe); border: 1px solid #bae6fd; border-radius: 18px; padding: 16px; margin-bottom: 20px; line-height: 1.7; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.05);">
+        <strong style="color: #0369a1; display: block; margin-bottom: 10px; font-size: 13.5px; font-weight: 800;">
+            📜 قوانین ارسال بار چمدانی (ایران ↔ افغانستان)
+        </strong>
+        <div style="color: #1e293b; font-size: 12px; text-align: justify; max-height: 120px; overflow-y: auto; padding-left: 5px;">
+            <strong style="color: #0284c7;">۱. رویت اجباری محتویات:</strong> راننده مکلف است پیش از تحویل گرفتن بسته، محتویات درون آن را به‌طور کامل رویت و بررسی نماید.<br>
+            <strong style="color: #ef4444;">۲. کالاهای ممنوعه:</strong> ارسال هرگونه مواد مخدر، داروهای بدون مجوز، اسلحه، طلا و ارز بیش از سقف قانونی ممنوع است.<br>
+            <strong style="color: #0284c7;">۳. تطابق مشخصات:</strong> بار فقط به شخصی تحویل داده می‌شود که مشخصات وی در فرم ثبت شده باشد.
+        </div>
+    </div>
+
+    <div style="width: 100%; background: #ffffff; padding: 20px 16px; border-radius: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); border: 1px solid #e2e8f0;">
+        
+        <p style="color: #b45309; background: #fef3c7; font-size: 12.5px; text-align: justify; margin-top: 0; margin-bottom: 20px; border: 1px solid #fde68a; padding: 12px; border-radius: 12px; line-height: 1.6; font-weight: 600;">
+            ⚠️ هزینه های ارسال بار شما بر اساس حجم، تعداد، وزن، نوع بار و ارزش کالای ارسالی شما توافقی تعیین می‌شود. شما بعد از پر کردن فرم مشخصات بار ارسالی در کادرهای پایین و ارسال به واتساپ حسنی، پیام تایید و توافق نهایی را از آقای حسنی دریافت می‌کنید.
+        </p>
+
+        <div style="margin-bottom: 18px;">
+            <label class="mobile-label">مشخصات کامل فرستنده بار</label>
+            <textarea id="cargo-sender-info" rows="3" class="mobile-textarea" placeholder="نام و تخلص فرستنده + شماره تلفن ایران و افغانستان مکتوب شود.&#10;مثال: محمد حسینی - 09......... / 07........."></textarea>
+        </div>
+
+        <div style="margin-bottom: 18px;">
+            <label class="mobile-label">مشخصات کامل گیرنده در مقصد</label>
+            <textarea id="cargo-receiver-info" rows="3" class="mobile-textarea" placeholder="نام و تخلص کامل گیرنده + شماره افغانستان و ایران (ترجیحاً واتساپ یا ایمو)&#10;مثال: احمد کریمی - 07......... (واتساپ)"></textarea>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label class="mobile-label">مسیر ارسال محموله (کشور مبدأ)</label>
+            <div class="select-wrapper">
+                <select id="cargo-country-source" onchange="updateCargoCities()" class="mobile-field" style="cursor: pointer;">
+                    <option value="iran">ایران 🇮🇷 (ارسال بار به افغانستان)</option>
+                    <option value="afghanistan">افغانستان 🇦🇫 (ارسال بار به ایران)</option>
+                </select>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label class="mobile-label">استان/ولایت مبدأ</label>
+            <div class="select-wrapper">
+                <select id="cargo-city-source" onchange="toggleCustomAddress('source')" class="mobile-field" style="cursor: pointer;"></select>
+            </div>
+            <div id="custom-source-box" class="custom-address-box">
+                <input type="text" id="cargo-custom-src-name" placeholder="نام شهر یا روستای فرعی (مثال: کاریز، گلران)" class="mobile-field" style="margin-bottom: 8px; background: #ffffff;">
+                <input type="text" id="cargo-custom-src-addr" placeholder="آدرس دقیق مبدأ (خیابان، کوچه، پلاک)" class="mobile-field" style="margin-bottom: 8px; background: #ffffff;">
+                <input type="number" id="cargo-custom-src-zip" placeholder="کد پستی مبدأ (اختیاری)" class="mobile-field" style="background: #ffffff; direction: ltr; text-align: right;">
+            </div>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label class="mobile-label">استان/ولایت مقصد</label>
+            <div class="select-wrapper">
+                <select id="cargo-city-target" onchange="toggleCustomAddress('target')" class="mobile-field" style="cursor: pointer;"></select>
+            </div>
+            <div id="custom-target-box" class="custom-address-box">
+                <input type="text" id="cargo-custom-tar-name" placeholder="نام شهر یا روستای فرعی (مثال: گذره، شندند)" class="mobile-field" style="margin-bottom: 8px; background: #ffffff;">
+                <input type="text" id="cargo-custom-tar-addr" placeholder="آدرس دقیق مقصد (خیابان، کوچه، پلاک)" class="mobile-field" style="margin-bottom: 8px; background: #ffffff;">
+                <input type="number" id="cargo-custom-tar-zip" placeholder="کد پستی مقصد (اختیاری)" class="mobile-field" style="background: #ffffff; direction: ltr; text-align: right;">
+            </div>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label class="mobile-label">نوع بسته‌بندی و امانت</label>
+            <div class="select-wrapper">
+                <select id="cargo-type" class="mobile-field" style="cursor: pointer;">
+                    <option value="اسناد و مدارک / پاکت نامه">اسناد و مدارک / پاکت نامه</option>
+                    <option value="چمدان مسافرتی">چمدان مسافرتی</option>
+                    <option value="بسته بندی / کارتن کوچک">بسته‌بندی / کارتن کوچک</option>
+                    <option value="بسته بندی / کارتن بزرگ">بسته‌بندی / کارتن بزرگ</option>
+                    <option value="کیسه / گونی">کیسه / گونی</option>
+                    <option value="امانات چمدانی و موارد دیگر">امانات چمدانی و موارد دیگر</option>
+                </select>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label class="mobile-label">وزن تقریبی محموله</label>
+            <div class="select-wrapper">
+                <select id="cargo-weight" class="mobile-field" style="cursor: pointer;">
+                    <option value="بسیار سبک (زیر ۵ کیلوگرم)">بسیار سبک (زیر ۵ کیلوگرم)</option>
+                    <option value="متوسط (۵ تا ۲۰ کیلوگرم)">متوسط (۵ تا ۲۰ کیلوگرم)</option>
+                    <option value="سنگین (بالای ۲۰ کیلوگرم)">سنگین (بالای ۲۰ کیلوگرم)</option>
+                </select>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label class="mobile-label">تاریخ تقریبی تحویل بار (هجری شمسی)</label>
+            <div style="position: relative; width: 100%;">
+                <input type="text" id="cargo-date-picker" placeholder="جهت انتخاب تاریخ شمسی کلیک کنید..." readonly class="mobile-field" style="cursor: pointer; background: #f8fafc;">
+                <span style="position: absolute; left: 16px; top: 16px; color: #64748b; pointer-events: none; font-size: 14px;">📅</span>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label class="mobile-label">عکس از محموله یا بار (اختیاری)</label>
+            <div style="background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 14px; padding: 15px; text-align: center; position: relative;">
+                <input type="file" id="cargo-image" accept="image/*" onchange="previewCargoImage(event)" style="opacity: 0; position: absolute; left: 0; top: 0; width: 100%; height: 100%; cursor: pointer;">
+                <span id="cargo-upload-text" style="color: #64748b; font-size: 13px;">📸 لمس جهت عکس‌برداری یا انتخاب فایل</span>
+                <img id="cargo-image-preview" style="display: none; max-width: 120px; margin: 12px auto 0 auto; border-radius: 10px; border: 2px solid #06b6d4;">
+            </div>
+        </div>
+
+        <div style="margin-bottom: 24px;">
+            <label class="mobile-label">توضیحات اضافی حساسیت بار</label>
+            <textarea id="cargo-desc" placeholder="اگر بار شکستنی است یا حساسیت خاصی دارد، اینجا بنویسید..." rows="3" style="width: 100%; padding: 12px 16px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 14px; color: #0f172a; font-family: inherit; font-size: 16px; resize: none; outline: none; line-height: 1.5; margin-bottom: 0px;"></textarea>
+        </div>
+
+        <button onclick="sendCargoOrderToWhatsApp()" style="width: 100%; height: 54px; background: linear-gradient(135deg, #06b6d4, #0891b2); color: #ffffff; border: none; border-radius: 14px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25);">
+            ثبت و ارسال به واتساپ حسنی
+        </button>
+
+        <div class="share-site-container">
+            <div class="share-site-title">📢 این سایت را به دوستان خود معرفی کنید:</div>
+            
+            <button onclick="shareMainSite('native')" class="btn-main-share">
+                🔗 اشتراک‌گذاری سریع لینک سایت
+            </button>
+            
+            <div class="social-share-grid">
+                <button onclick="shareMainSite('whatsapp')" class="social-btn bg-whatsapp">واتساپ</button>
+                <button onclick="shareMainSite('telegram')" class="social-btn bg-telegram">تلگرام</button>
+                <button onclick="shareMainSite('eitaa')" class="social-btn bg-eitaa">ایتا</button>
+                <button onclick="shareMainSite('rubika')" class="social-btn bg-rubika">روبیکا</button>
+            </div>
+        </div>
+
+    </div>
+
+  </div>
+
   <a
     href="https://api.whatsapp.com/message/3YHT6E4WZFNLM1?autoload=1&app_absent=0"
     target="_blank"
@@ -264,7 +570,9 @@
     💬
   </a>
 
+  <!-- اسکریپت‌های پردازش عملکرد هر دو فرم به صورت کاملا مجزا -->
   <script>
+    // اسکریپت‌های مربوط به فرم اول (تاکسی حسنی)
     function updateClock() {
       const now = new Date();
 
@@ -320,6 +628,176 @@
         window.open(url, "_blank");
 
       });
+
+    // اسکریپت‌های مربوط به فرم دوم (ارسال بار و امانات)
+    $(document).ready(function() {
+        updateCargoCities();
+
+        $("#cargo-date-picker").persianDatepicker({
+            format: 'YYYY/MM/DD',
+            autoClose: true,
+            initialValue: false,
+            timePicker: { enabled: false }
+        });
+    });
+
+    const cargoGeographyData = {
+        iran: [
+            "خراسان رضوی (مشهد، تایباد)", "تهران", "اصفهان", "فارس (شیراز)", "کرمان", "قم", "یزد", 
+            "خراسان جنوبی (بیرجند)", "سیستان و بلوچستان (زاهدان)", "البرز (کرج)", "آذربایجان شرقی (تبریز)",
+            "گلستان (گرگان)", "مازندران (ساری)", "گیلان (رشت)", "همدان", "مرکزی (اراک)"
+        ],
+        afghanistan: [
+            "هرات", "کابل", "نیمروز (زرنج)", "قندهار", "بلخ (مزار شریف)", "غزنی", "فراه", "بادغیس", 
+            "هلمند", "ننگرهار (جلال‌آباد)", "کندوز", "تخار", "بغلان", "غور", "فاریاب", "جوزجان"
+        ]
+    };
+
+    function updateCargoCities() {
+        const country = document.getElementById('cargo-country-source').value;
+        const srcSelect = document.getElementById('cargo-city-source');
+        const targetSelect = document.getElementById('cargo-city-target');
+        
+        srcSelect.innerHTML = '';
+        targetSelect.innerHTML = '';
+        
+        const sourceList = country === 'iran' ? cargoGeographyData.iran : cargoGeographyData.afghanistan;
+        const targetList = country === 'iran' ? cargoGeographyData.afghanistan : cargoGeographyData.iran;
+
+        let defaultSrcOpt = document.createElement('option');
+        defaultSrcOpt.value = "";
+        defaultSrcOpt.innerText = "👇 انتخاب استان/ولایت مبدأ...";
+        srcSelect.appendChild(defaultSrcOpt);
+
+        sourceList.forEach(place => {
+            let opt = document.createElement('option'); opt.value = place; opt.innerText = place; srcSelect.appendChild(opt);
+        });
+        let customSrcOpt = document.createElement('option');
+        customSrcOpt.value = "CUSTOM";
+        customSrcOpt.innerText = "✍️ سایر شهرهای دیگر (تایپ دستی...)";
+        srcSelect.appendChild(customSrcOpt);
+        
+        let defaultTarOpt = document.createElement('option');
+        defaultTarOpt.value = "";
+        defaultTarOpt.innerText = "👇 انتخاب استان/ولایت مقصد...";
+        targetSelect.appendChild(defaultTarOpt);
+
+        targetList.forEach(place => {
+            let opt = document.createElement('option'); opt.value = place; opt.innerText = place; targetSelect.appendChild(opt);
+        });
+        let customTarOpt = document.createElement('option');
+        customTarOpt.value = "CUSTOM";
+        customTarOpt.innerText = "✍️ سایر ولایات دیگر (تایپ دستی...)";
+        targetSelect.appendChild(customTarOpt);
+
+        document.getElementById('custom-source-box').style.display = 'none';
+        document.getElementById('custom-target-box').style.display = 'none';
+    }
+
+    function toggleCustomAddress(type) {
+        const selectVal = document.getElementById(`cargo-city-${type}`).value;
+        const customBox = document.getElementById(`custom-${type}-box`);
+        
+        if (selectVal === "CUSTOM") {
+            $(customBox).slideDown(200);
+        } else {
+            $(customBox).slideUp(200);
+        }
+    }
+
+    function previewCargoImage(event) {
+        const preview = document.getElementById('cargo-image-preview');
+        const uploadText = document.getElementById('cargo-upload-text');
+        const file = event.target.files[0];
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+            preview.style.display = 'block';
+            uploadText.innerText = "📸 عکس بار انتخاب شد";
+        }
+    }
+
+    function sendCargoOrderToWhatsApp() {
+        const senderInfo = document.getElementById('cargo-sender-info').value.trim();
+        const receiverInfo = document.getElementById('cargo-receiver-info').value.trim();
+        let citySrc = document.getElementById('cargo-city-source').value;
+        let cityTar = document.getElementById('cargo-city-target').value;
+        
+        if(!senderInfo || !receiverInfo) {
+            alert("لطفاً مشخصات کامل فرستنده و گیرنده را بنویسید.");
+            return;
+        }
+        if(!citySrc || !cityTar) {
+            alert("لطفاً استان/ولایت مبدأ و مقصد را تعیین کنید.");
+            return;
+        }
+
+        if(citySrc === "CUSTOM") {
+            const name = document.getElementById('cargo-custom-src-name').value.trim();
+            const addr = document.getElementById('cargo-custom-src-addr').value.trim();
+            const zip = document.getElementById('cargo-custom-src-zip').value.trim();
+            if(!name || !addr) {
+                alert("لطفاً نام شهر فرعی و آدرس دقیق مبدأ را به صورت دستی وارد کنید.");
+                return;
+            }
+            citySrc = `تایپ دستی [شهر: ${name} / آدرس: ${addr} ${zip ? '/ کدپستی: ' + zip : ''}]`;
+        }
+
+        if(cityTar === "CUSTOM") {
+            const name = document.getElementById('cargo-custom-tar-name').value.trim();
+            const addr = document.getElementById('cargo-custom-tar-addr').value.trim();
+            const zip = document.getElementById('cargo-custom-tar-zip').value.trim();
+            if(!name || !addr) {
+                alert("لطفاً نام شهر فرعی و آدرس دقیق مقصد را به صورت دستی وارد کنید.");
+                return;
+            }
+            cityTar = `تایپ دستی [شهر: ${name} / آدرس: ${addr} ${zip ? '/ کدپستی: ' + zip : ''}]`;
+        }
+
+        const type = document.getElementById('cargo-type').value;
+        const weight = document.getElementById('cargo-weight').value;
+        const finalDate = document.getElementById('cargo-date-picker').value || "توافقی";
+        const desc = document.getElementById('cargo-desc').value || "ندارد";
+
+        const messageTemplate = `📦 *سفارش جدید ارسال بار و امانات* 📦\n\n` +
+                                `👤 *مشخصات فرستنده:* \n${senderInfo}\n\n` +
+                                `👥 *مشخصات گیرنده:* \n${receiverInfo}\n\n` +
+                                `📍 *مبدأ:* ${citySrc}\n` +
+                                `🏁 *مقصد:* ${cityTar}\n\n` +
+                                `💼 *نوع بسته:* ${type}\n` +
+                                `⚖️ *وزن تقریبی:* ${weight}\n` +
+                                `📅 *تاریخ حرکت:* ${finalDate}\n` +
+                                `📝 *توضیحات حساسیت بار:* ${desc}`;
+
+        const myWhatsAppNum = "93780889098";
+        window.open(`https://wa.me/${myWhatsAppNum}?text=${encodeURIComponent(messageTemplate)}`, '_blank');
+    }
+
+    function shareMainSite(platform) {
+        const siteUrl = "https://taxi-reservation-herat-mashhad-hassan.netlify.app";
+        const shareText = "🚖 سرویس رزرو آنلاین تاکسی و ارسال بار حسنی (هرات ↔ مشهد)\nاگر قصد سفر یا ارسال بار چمدانی دارید، از طریق لینک زیر سریع و آسان رزرو کنید:\n" + siteUrl;
+
+        if (platform === 'native') {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'سایت رزرو تاکسی حسنی',
+                    text: 'سرویس رزرو آنلاین تاکسی و ارسال بار حسنی (هرات ↔ مشهد)',
+                    url: siteUrl
+                }).catch((err) => console.log(err));
+            } else {
+                navigator.clipboard.writeText(shareText);
+                alert("لینک سایت همراه متن معرفی کپی شد! می‌توانید آن را برای دوستان خود بفرستید.");
+            }
+        } else if (platform === 'whatsapp') {
+            window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
+        } else if (platform === 'telegram') {
+            window.open(`https://t.me/share/url?url=${encodeURIComponent(siteUrl)}&text=${encodeURIComponent("🚖 سرویس رزرو آنلاین تاکسی و ارسال بار حسنی (هرات ↔ مشهد)\nاگر قصد سفر یا ارسال بار دارید، از طریق لینک بالا رزرو کنید.")}`, '_blank');
+        } else if (platform === 'eitaa') {
+            window.open(`https://eitaa.com/share/url?url=${encodeURIComponent(siteUrl)}&text=${encodeURIComponent(shareText)}`, '_blank');
+        } else if (platform === 'rubika') {
+            navigator.clipboard.writeText(shareText);
+            alert("متن و لینک سایت برای روبیکا کپی شد. وارد برنامه روبیکا شوید و آن را پیست (Paste) کنید.");
+        }
+    }
   </script>
 
 </body>
